@@ -29,7 +29,6 @@ const TripSeatPicker: React.FC<TripSeatPickerProps> = () => {
 
   return (
     <form onSubmit={handleSubmit}>
-      {JSON.stringify(form)}
       <div className="mx-6 rounded-md border border-violet-300 bg-neutral-50">
         <div className="text-center text-sm uppercase">Frente</div>
         <ToggleGroup.Root
