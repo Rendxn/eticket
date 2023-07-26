@@ -1,5 +1,14 @@
+"use client"
+
+import { ChevronLeftIcon } from "@heroicons/react/24/solid"
 import type { Metadata } from "next"
 import { Inter } from "next/font/google"
+import { useRouter } from "next/navigation"
+import { useState } from "react"
+import {
+  SeatFormStateContext,
+  SEAT_FORM_STATE,
+} from "./(trips)/hooks/useSeatForm"
 import "./globals.css"
 
 const inter = Inter({ subsets: ["latin"] })
@@ -13,11 +22,26 @@ export default function RootLayout({
   children,
 }: {
   children: React.ReactNode
+  params: {
+    tripId: string
+  }
 }) {
+  const [form, setForm] = useState(SEAT_FORM_STATE)
+  const router = useRouter()
+
   return (
     <html lang="es">
       <body className={`${inter.className} mx-auto min-h-screen max-w-md`}>
-        {children}
+        <SeatFormStateContext.Provider value={{ form, setForm }}>
+          <button
+            type="button"
+            onClick={() => router.back()}
+            className="my-4 p-1"
+          >
+            <ChevronLeftIcon className="h-6 w-6 text-violet-900" />
+          </button>
+          {children}
+        </SeatFormStateContext.Provider>
       </body>
     </html>
   )

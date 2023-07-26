@@ -1,5 +1,7 @@
 "use client"
 
+import * as RadioGroup from "@radix-ui/react-radio-group"
+import Link from "next/link"
 import { useContext } from "react"
 import { SeatFormStateContext } from "../hooks/useSeatForm"
 
@@ -20,10 +22,30 @@ const CheckoutPage: React.FC<CheckoutPageProps> = () => {
             {form.seats.length * Number(form.trip?.price.value)}
           </span>
         </div>
-        <div className="w-full rounded-sm border border-solid p-10">PSE</div>
-        <div className="w-full rounded-sm border border-solid p-10 ">
-          Tarjeta de crédito
-        </div>
+        <RadioGroup.Root className="flex flex-col gap-8">
+          <RadioGroup.Item
+            value="PSE"
+            className="block rounded-md border border-neutral-300 radix-state-checked:border radix-state-checked:border-violet-500 radix-state-checked:bg-violet-50"
+          >
+            <RadioGroup.Indicator />
+            <div className="w-full p-10 text-left">PSE</div>
+          </RadioGroup.Item>
+          <RadioGroup.Item
+            value="TC"
+            className="block rounded-md border border-neutral-300 radix-state-checked:border radix-state-checked:border-violet-500 radix-state-checked:bg-violet-50"
+          >
+            <RadioGroup.Indicator />
+            <div className="w-full p-10 text-left">Tarjeta de crédito</div>
+          </RadioGroup.Item>
+        </RadioGroup.Root>
+      </div>
+      <div className="fixed bottom-0 left-0 z-10 w-full border-t bg-white p-4 text-center">
+        <Link
+          href="mis-viajes"
+          className="block w-full bg-violet-500 p-4 text-white disabled:bg-violet-200"
+        >
+          Pagar
+        </Link>
       </div>
     </div>
   )
