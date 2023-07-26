@@ -2,24 +2,41 @@
 
 import TripCard from "@/app/(trips)/components/TripCard/TripCard"
 import { SeatFormStateContext } from "@/app/(trips)/hooks/useSeatForm"
+import { Trip } from "@/app/(trips)/interfaces/Trip"
 import { useContext } from "react"
 
 interface MyTripsPageProps {}
 
+const dummyTrip: { trip: Trip | null; seats: string[]; payment: string } = {
+  trip: {
+    id: 1,
+    operator: "Rápido Ochoa",
+    duration: { value: 8, unit: "horas" },
+    origin: { date: 1690401700682, location: "Medellín" },
+    price: { value: 50000, currency: "COP" },
+    destination: { date: 1690430500682, location: "Cali" },
+    amenities: ["WiFi", "WiFi", "WiFi", "WiFi", "WiFi", "WiFi"],
+  },
+  seats: ["1A", "1B", "2A"],
+  payment: "",
+}
+
 const MyTripsPage: React.FC<MyTripsPageProps> = () => {
   const { form, setForm } = useContext(SeatFormStateContext)
 
-  if (!form.trip) return null
+  const details = form.trip ? form : dummyTrip
+
+  if (!details.trip) return null
 
   return (
     <>
       <div>
-        <TripCard trip={form.trip}></TripCard>
+        <TripCard trip={details.trip}></TripCard>
         <div className="p-4">
-          {form.seats.map((seat, index) => (
+          {details.seats.map((seat, index) => (
             <span key={seat}>
               {seat}
-              {index < form.seats.length - 1 ? ", " : null}
+              {index < details.seats.length - 1 ? ", " : null}
             </span>
           ))}
         </div>

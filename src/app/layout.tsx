@@ -1,8 +1,9 @@
 "use client"
 
-import { ChevronLeftIcon } from "@heroicons/react/24/solid"
+import { AtSymbolIcon, ChevronLeftIcon } from "@heroicons/react/24/solid"
 import type { Metadata } from "next"
 import { Inter } from "next/font/google"
+import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { useState } from "react"
 import {
@@ -33,13 +34,14 @@ export default function RootLayout({
     <html lang="es">
       <body className={`${inter.className} mx-auto min-h-screen max-w-md`}>
         <SeatFormStateContext.Provider value={{ form, setForm }}>
-          <button
-            type="button"
-            onClick={() => router.back()}
-            className="my-4 p-1"
-          >
-            <ChevronLeftIcon className="h-6 w-6 text-violet-900" />
-          </button>
+          <div className="my-4 flex justify-between">
+            <button type="button" onClick={() => router.back()} className="p-1">
+              <ChevronLeftIcon className="h-6 w-6 text-violet-900" />
+            </button>
+            <Link href="mis-viajes" className="p-1">
+              <AtSymbolIcon className="h-6 w-6 text-violet-900" />
+            </Link>
+          </div>
           {children}
         </SeatFormStateContext.Provider>
       </body>
